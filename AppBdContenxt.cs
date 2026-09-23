@@ -1,3 +1,4 @@
+using DeskFlowAPI.Entidades;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeskFlowAPI
@@ -8,7 +9,17 @@ namespace DeskFlowAPI
         {
             
         }
-
-        //public DbSet<DeskFlowAPI.Models.User> Users { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Categoria>( c =>
+            {
+                c.HasMany(c => c.Chamados)
+                .WithOne(ch => ch.Categoria)
+                .HasForeignKey(ch => ch.CategoriaId);
+            });
+            
+        }
+        public DbSet<Chamado> Chamados { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
     }
 }
