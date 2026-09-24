@@ -19,7 +19,8 @@ namespace DeskFlowAPI
 
                 c.HasMany(cat => cat.Chamados)
                     .WithOne(ch => ch.Categoria)
-                    .HasForeignKey(ch => ch.CategoriaId);
+                    .HasForeignKey(ch => ch.CategoriaId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<Chamado>( c =>
