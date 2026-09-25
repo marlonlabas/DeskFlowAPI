@@ -1,4 +1,5 @@
 using DeskFlowAPI;
+using DeskFlowAPI.Middlewares;
 using DeskFlowAPI.Repositories;
 using DeskFlowAPI.Repositories.Interfaces;
 using DeskFlowAPI.Services;
@@ -17,6 +18,8 @@ builder.Services.AddScoped<ICategoriasService, CategoriasService>();
 builder.Services.AddScoped<ICategoriasInterface, CategoriaRepository>();
 
 var app = builder.Build();
+
+app.UseMiddleware<ErrorMiddleware>();
 
 app.MapOpenApi();
 
