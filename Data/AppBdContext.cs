@@ -7,7 +7,6 @@ namespace DeskFlowAPI
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -42,10 +41,25 @@ namespace DeskFlowAPI
 
                 c.Property(ch => ch.Status)
                     .HasConversion<string>();
+
+                c.HasMany(ch => ch.Interacoes)
+                    .WithOne(i => i.Chamado)
+                    .HasForeignKey(i => i.ChamadoId);
             });
             
+             modelBuilder.Entity<Interacao>( c =>
+             {
+                c.Property(i => i.Autor)
+                    .IsRequired()
+                    .HasMaxLength(150);
+
+                c.Property(i => i.Mensagem)
+                    .IsRequired()
+                    .HasMaxLength(1000);
+             });
         }
         public DbSet<Chamado> Chamados { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Interacao> Interacoes {get; set; }
     }
 }
