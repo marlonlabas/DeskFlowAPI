@@ -50,9 +50,10 @@ public class CategoriaController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] string categoriaAtualizada)
+    public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] CategoriaUpdateDTO dto)
     {
+        var categoriaAtualizada = dto.Nome;
         await _categoriaService.AtualizarAsync(id, categoriaAtualizada);
-        return NoContent();
+        return Ok(new MensagemDTO("Categoria atualizada com sucesso."));
     }
 }
