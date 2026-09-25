@@ -23,8 +23,7 @@ public class CategoriaController : ControllerBase
         return Ok(categorias);
     }
 
-    [HttpGet]
-    [Route("{id}")]
+    [HttpGet("{id:int}")]
     public async Task<IActionResult> ObterPorIdAsync([FromRoute] int id)
     {
         Categoria categoria = await _categoriaService.ObterPorIdAsync(id);
@@ -42,14 +41,14 @@ public class CategoriaController : ControllerBase
         return Created($"/api/categorias/{criada.Id}", criada);
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteAsync([FromRoute] int id)
     {
         await _categoriaService.DeletarAsync(id);
         return NoContent();
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("{id:int}")]
     public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] CategoriaUpdateDTO dto)
     {
         var categoriaAtualizada = dto.Nome;
