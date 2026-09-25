@@ -1,6 +1,3 @@
-using System;
-using DeskFlowAPI.Models.Entidades;
-
 namespace DeskFlowAPI.Models.Entidades;
 public class Chamado
 {
@@ -15,4 +12,5 @@ public class Chamado
     public string Solucao { get; set; }
     public int CategoriaId { get; set; }
     public virtual Categoria Categoria { get; set; }
+    public virtual ICollection<Interacao> Interacoes { get; set; }
 }

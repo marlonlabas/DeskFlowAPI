@@ -1,7 +1,4 @@
-using System;
-
 namespace DeskFlowAPI.Models.Entidades;
-
 public class Categoria
 {
     public int Id { get; set; }
