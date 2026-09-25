@@ -3,7 +3,6 @@ using DeskFlowAPI.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeskFlowAPI.Repositories;
-
 public class CategoriaRepository : ICategoriasInterface
 {
     private readonly AppDbContext _context;
