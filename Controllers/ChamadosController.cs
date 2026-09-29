@@ -61,4 +61,25 @@ public class ChamadosController : ControllerBase
         await _chamadosService.DeletarAsync(id);
         return NoContent();
     }
+
+    [HttpPost("{id:int}/iniciar")]
+    public async Task<ActionResult<MensagemDTO>> IniciarAtendimento(int id)
+    {
+        await _chamadosService.IniciarAtendimentoAsync(id);
+        return Ok(new MensagemDTO("Atendimento iniciado com sucesso."));
+    }
+
+    [HttpPost("{id:int}/encerrar")]
+    public async Task<ActionResult<MensagemDTO>> EncerrarAtendimento([FromRoute] int id, [FromBody] ChamadoEncerrarDTO dto)
+    {
+        await _chamadosService.EncerrarAtendimentoAsync(id, dto.Solucao);
+        return Ok(new MensagemDTO("Chamado encerrado com sucesso."));
+    }
+
+    [HttpPost("{id:int}/interacoes")]
+    public async Task<ActionResult<Interacao>> AdicionarInteracao([FromRoute] int id, [FromBody] InteracaoCreateDTO dto)
+    {
+        var interacao = await _chamadosService.AdicionarInteracaoAsync(id, dto.Autor, dto.Mensagem);
+        return Created($"/api/chamados/{id}/interacoes/{interacao.Id}", interacao);
+    }
 }

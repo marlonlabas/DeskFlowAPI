@@ -47,4 +47,26 @@ public class ChamadosService : IChamadosService
         await ObterPorIdAsync(id);
         await _chamadosRepository.DeletarAsync(id);
     }
+
+    public async Task IniciarAtendimentoAsync(int id)
+    {
+        var chamado = await ObterPorIdAsync(id);
+        chamado.IniciarAtendimento();
+        await _chamadosRepository.AtualizarAsync(chamado);
+    }
+
+    public async Task EncerrarAtendimentoAsync(int id, string solucao)
+    {
+        var chamado = await ObterPorIdAsync(id);
+        chamado.EncerrarAtendimento(solucao);
+        await _chamadosRepository.AtualizarAsync(chamado);
+    }    
+
+    public async Task<Interacao> AdicionarInteracaoAsync(int id, string autor, string mensagem)
+    {
+        var chamado = await ObterPorIdAsync(id);
+        chamado.AdicionarInteracao(autor, mensagem);
+        await _chamadosRepository.AtualizarAsync(chamado);
+        return chamado.Interacoes.Last();
+    }
 }
