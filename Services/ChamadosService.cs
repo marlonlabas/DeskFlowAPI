@@ -35,11 +35,11 @@ public class ChamadosService : IChamadosService
         return await _chamadosRepository.ObterComFiltrosAsync(status, prioridade, categoriaId);
     }
 
-    public async Task AtualizarAsync(int id, string novoTitulo)
+    public async Task AtualizarAsync(int id, string novoTitulo, string? novaDescricao, Prioridade? novaPrioridade, string? novoSolicitanteNome, int? novaCategoriaId)
     {
         var chamado = await ObterPorIdAsync(id);
-        chamado.Update(novoTitulo);
-        await _chamadosRepository.ObterPorIdAsync(id);
+        chamado.Update(novoTitulo, novaDescricao, novaPrioridade, novoSolicitanteNome, novaCategoriaId);
+        await _chamadosRepository.AtualizarAsync(chamado);
     }
 
     public async Task DeletarAsync(int id)

@@ -18,6 +18,8 @@ builder.Services.AddScoped<ICategoriasService, CategoriasService>();
 builder.Services.AddScoped<ICategoriasInterface, CategoriaRepository>();
 builder.Services.AddScoped<IChamadosService, ChamadosService>();
 builder.Services.AddScoped<IChamadosInterface, ChamadosRepository>();
+builder.Services.AddControllers()
+    .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
 
 var app = builder.Build();
 

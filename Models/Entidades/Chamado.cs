@@ -17,9 +17,21 @@ public class Chamado
     public virtual Categoria Categoria { get; set; }
     public virtual ICollection<Interacao> Interacoes { get; set; } = new List<Interacao>();
 
-    public void Update(string novoTitulo)
+    public void Update(string novoTitulo, string? novaDescricao = null, Prioridade? novaPrioridade = null, string? novoSolicitanteNome = null, int? novaCategoriaId = null)
     {
         Titulo = novoTitulo;
+
+        if (!string.IsNullOrWhiteSpace(novaDescricao))
+            Descricao = novaDescricao;
+
+        if (novaPrioridade.HasValue)
+            Prioridade = novaPrioridade.Value;
+
+        if (!string.IsNullOrWhiteSpace(novoSolicitanteNome))
+            SolicitanteNome = novoSolicitanteNome;
+
+        if (novaCategoriaId.HasValue)
+            CategoriaId = novaCategoriaId.Value;
     }
     public void IniciarAtendimento()
     {

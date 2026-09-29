@@ -49,14 +49,14 @@ public class ChamadosController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public async Task<ActionResult<Chamado>> Atualizar([FromRoute] int id, [FromBody] ChamadoUpdateDTO dto)
+    public async Task<ActionResult<MensagemDTO>> Atualizar([FromRoute] int id, [FromBody] ChamadoUpdateDTO dto)
     {
-        await _chamadosService.AtualizarAsync(id, dto.Titulo);
+        await _chamadosService.AtualizarAsync(id, dto.Titulo, dto.Descricao, dto.Prioridade, dto.SolicitanteNome, dto.CategoriaId);
         return Ok(new MensagemDTO("Chamado atualizado com sucesso."));
     }
-        
+
     [HttpDelete("{id:int}")]
-    public async Task <IActionResult> Deletar(int id)
+    public async Task<IActionResult> Deletar(int id)
     {
         await _chamadosService.DeletarAsync(id);
         return NoContent();
