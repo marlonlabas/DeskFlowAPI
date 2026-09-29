@@ -14,7 +14,7 @@ public class CategoriaRepository : ICategoriasInterface
     {
         return await _context.Categorias.ToListAsync();
     }
-    public async Task<Categoria?> ObterPorIdAsync(int id)
+    public async Task<Categoria> ObterPorIdAsync(int id)
     {
         return await _context.Categorias.FindAsync(id);
     }

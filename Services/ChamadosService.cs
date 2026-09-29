@@ -1,3 +1,4 @@
+using DeskFlowAPI.Exceptions;
 using DeskFlowAPI.Models.Entidades;
 using DeskFlowAPI.Repositories.Interfaces;
 using DeskFlowAPI.Services.Interfaces;
@@ -19,9 +20,14 @@ public class ChamadosService : IChamadosService
         return chamado;
     }
 
-    public async Task<Chamado?> ObterPorIdAsync(int id)
+    public async Task<Chamado> ObterPorIdAsync(int id)
     {
-        return await _chamadosRepository.ObterPorIdAsync(id);
+        var chamado = await _chamadosRepository.ObterPorIdAsync(id);
+        if (chamado is null)
+        {
+            throw new NotFoundException($"Chamado com Id {id} não encontrado.");
+        }
+        return chamado;
     }
 
     public async Task<List<Chamado>> ObterComFiltrosAsync(Status? status, Prioridade? prioridade, int? categoriaId)
@@ -29,9 +35,16 @@ public class ChamadosService : IChamadosService
         return await _chamadosRepository.ObterComFiltrosAsync(status, prioridade, categoriaId);
     }
 
-    public async Task<Chamado> AtualizarAsync(Chamado chamado)
+    public async Task AtualizarAsync(int id, string novoTitulo)
     {
-        await _chamadosRepository.AtualizarAsync(chamado);
-        return chamado;
+        var chamado = await ObterPorIdAsync(id);
+        chamado.Update(novoTitulo);
+        await _chamadosRepository.ObterPorIdAsync(id);
+    }
+
+    public async Task DeletarAsync(int id)
+    {
+        await ObterPorIdAsync(id);
+        await _chamadosRepository.DeletarAsync(id);
     }
 }

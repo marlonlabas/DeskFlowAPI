@@ -16,7 +16,7 @@ public class ChamadosRepository : IChamadosInterface
         await _context.Chamados.AddAsync(chamado);
         await _context.SaveChangesAsync();
     }
-    public async Task<Chamado?> ObterPorIdAsync(int id)
+    public async Task<Chamado> ObterPorIdAsync(int id)
     {
         return await _context.Chamados
             .Include(ch => ch.Categoria)
@@ -45,5 +45,17 @@ public class ChamadosRepository : IChamadosInterface
     {
         _context.Chamados.Update(chamado);
         await _context.SaveChangesAsync();
+    }
+    
+    public async Task<bool> DeletarAsync(int id)
+    {
+        var chamado = await _context.Chamados.FindAsync(id);
+        if(chamado is null)
+        {
+            return false;
+        }
+        _context.Chamados.Remove(chamado);
+        await _context.SaveChangesAsync();
+        return true;
     }
 }

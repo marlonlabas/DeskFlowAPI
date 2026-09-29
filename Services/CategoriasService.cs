@@ -16,7 +16,6 @@ public class CategoriasService : ICategoriasService
     public async Task<Categoria> ObterPorIdAsync (int id)
     {
         var categoria = await _repository.ObterPorIdAsync(id);
-
         if (categoria is null)
         {
             throw new NotFoundException($"Categoria com Id {id} não encontrada.");
@@ -33,9 +32,7 @@ public class CategoriasService : ICategoriasService
     public async Task AtualizarAsync(int id, string novoNome)
     {
         var categoria = await ObterPorIdAsync(id);
-
         categoria.Update(novoNome);
-
         await _repository.AtualizarAsync(categoria);
     }
 

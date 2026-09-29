@@ -1,6 +1,7 @@
 using DeskFlowAPI.Exceptions;
 
 namespace DeskFlowAPI.Models.Entidades;
+
 public class Chamado
 {
     public int Id { get; set; }
@@ -16,6 +17,10 @@ public class Chamado
     public virtual Categoria Categoria { get; set; }
     public virtual ICollection<Interacao> Interacoes { get; set; } = new List<Interacao>();
 
+    public void Update(string novoTitulo)
+    {
+        Titulo = novoTitulo;
+    }
     public void IniciarAtendimento()
     {
         if (Status != Status.Aberto)
@@ -32,11 +37,11 @@ public class Chamado
         DataFechamento = DateTime.Now;
     }
 
-    public void AdicionarInteracao (string autor, string mensagem)
+    public void AdicionarInteracao(string autor, string mensagem)
     {
         if (Status == Status.Fechado)
             throw new RegraDeNegocioException("Este chamado já foi encerrado.");
-        
+
         var novaInteracao = new Interacao
         {
             Autor = autor,
