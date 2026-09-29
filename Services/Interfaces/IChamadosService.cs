@@ -1,7 +1,7 @@
 using DeskFlowAPI.Models.Entidades;
 
 namespace DeskFlowAPI.Services.Interfaces;
-public interface IChamadosServices
+public interface IChamadosService
 {
     Task <Chamado> CriarAsync(Chamado chamado);
     Task <Chamado?> ObterPorIdAsync(int id);

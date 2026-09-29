@@ -4,7 +4,7 @@ using DeskFlowAPI.Services.Interfaces;
 
 namespace DeskFlowAPI.Services;
 
-public class ChamadosService : IChamadosServices
+public class ChamadosService : IChamadosService
 {
     private readonly IChamadosInterface _chamadosRepository;
 

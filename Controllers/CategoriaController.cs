@@ -11,9 +11,9 @@ public class CategoriaController : ControllerBase
 {
     private readonly ICategoriasService _categoriaService;
 
-    public CategoriaController(ICategoriasService service)
+    public CategoriaController(ICategoriasService categoriaService)
     {
-        _categoriaService = service;
+        _categoriaService = categoriaService;
     }
 
     [HttpGet]
