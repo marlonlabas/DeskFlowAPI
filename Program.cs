@@ -4,12 +4,18 @@ using DeskFlowAPI.Repositories;
 using DeskFlowAPI.Repositories.Interfaces;
 using DeskFlowAPI.Services;
 using DeskFlowAPI.Services.Interfaces;
+using DeskFlowAPI.Converters;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new DateTimeSemFracaoConverter());
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -18,8 +24,6 @@ builder.Services.AddScoped<ICategoriasService, CategoriasService>();
 builder.Services.AddScoped<ICategoriasInterface, CategoriaRepository>();
 builder.Services.AddScoped<IChamadosService, ChamadosService>();
 builder.Services.AddScoped<IChamadosInterface, ChamadosRepository>();
-builder.Services.AddControllers()
-    .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
 
 var app = builder.Build();
 

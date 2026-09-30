@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace DeskFlowAPI.Models.Entidades;
 public class Categoria
 {
@@ -7,5 +9,6 @@ public class Categoria
     {
         Nome = nome;
     }
+    [JsonIgnore]
     public virtual ICollection<Chamado> Chamados { get; set; }
 }
