@@ -1,12 +1,14 @@
 using DeskFlowAPI.DTO;
 using DeskFlowAPI.Models.Entidades;
 using DeskFlowAPI.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeskFlowAPI.Controllers;
 
 [ApiController]
 [Route("api/chamados")]
+[Authorize]
 
 public class ChamadosController : ControllerBase
 {
