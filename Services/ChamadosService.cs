@@ -44,7 +44,11 @@ public class ChamadosService : IChamadosService
 
     public async Task DeletarAsync(int id)
     {
-        await ObterPorIdAsync(id);
+        var chamado = await ObterPorIdAsync(id);
+        if (chamado.Status != Status.Fechado)
+        {
+            throw new RegraDeNegocioException($"Não é possível deletar o chamado com Id {id} pois ele está '{chamado.Status}'. Somente chamados com status 'Fechado' podem ser removidos.");
+        }
         await _chamadosRepository.DeletarAsync(id);
     }
 
